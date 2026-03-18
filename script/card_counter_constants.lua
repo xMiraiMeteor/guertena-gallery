@@ -1,0 +1,1 @@
+COUNTER_ROSE         = 0x55fc

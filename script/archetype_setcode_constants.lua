@@ -1,0 +1,1 @@
+SET_CURSED_GALLERY      =   0x7dc
