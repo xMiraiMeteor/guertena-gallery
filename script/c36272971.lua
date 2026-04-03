@@ -50,7 +50,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.ctfilter(c)
-	return c:IsFaceup() and c:GetCounter(0x55fc)>1
+	return c:IsFaceup() and c:GetCounter(0x55fc)>=1
 end
 function s.rmcttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingTarget(s.ctfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
