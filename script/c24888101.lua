@@ -11,12 +11,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--Places 3 Rose Counters on a monster when it is Summoned face-up
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetCategory(CATEGORY_COUNTER)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetRange(LOCATION_FZONE)
-	e2:SetTarget(s.smcttg)
 	e2:SetOperation(s.smctop)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -46,14 +43,9 @@ function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 		tc:AddCounter(0x55fc,3)
 	end
 end
-function s.smcttg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsRelateToEffect(e) end
-	Duel.SetTargetCard(eg)
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,3,0,0x55fc)
-end
 function s.smctop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=eg:Filter(aux.FaceupFilter(Card.IsRelateToEffect,e),nil)
+	local c=e:GetHandler()
+	local g=eg:Filter(s.ctfilter,nil,tp)
 	for tc in g:Iter() do
 		tc:AddCounter(0x55fc,3)
 	end
